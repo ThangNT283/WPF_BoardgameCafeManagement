@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\AdminWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\BillManageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PasswordUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StaffManageForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StaffManageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BillManageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PasswordUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DrinkManageForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TableManageForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StaffManageForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DrinkManageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TableManageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StaffManageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

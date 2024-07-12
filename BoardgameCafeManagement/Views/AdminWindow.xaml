@@ -1,0 +1,76 @@
+﻿<Window x:Class="BoardgameCafeManagement.Views.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BoardgameCafeManagement.Views" xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AdminViewModel}"
+        mc:Ignorable="d"
+        Background="#120727"
+        WindowState="Maximized"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="AdminWindow" Height="1080" Width="1920">
+    <Window.Resources>
+        <Style x:Key="TagButtonStyle" TargetType="RadioButton">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Margin" Value="0, 10, 0, 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"/>
+                                <ContentPresenter Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#6d52ce"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="0, 25, 25, 0" Padding="0" Background="#362f68">
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <RadioButton Content="Bills" Command="{Binding BillManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup" Tag="/Images/bill_icon.png"/>
+                    <RadioButton Content="Drinks" Command="{Binding DrinkManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
+                    <RadioButton Content="Games" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
+                    <RadioButton Content="Tables" Command="{Binding TableManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
+                    <RadioButton Content="Staffs" Command="{Binding StaffManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
+            </StackPanel>
+        </Grid>
+        </Border>
+
+        <Grid Grid.Column="1">
+            <Frame x:Name="mainContent" Content="{Binding MainContent, UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </Grid>
+</Window>

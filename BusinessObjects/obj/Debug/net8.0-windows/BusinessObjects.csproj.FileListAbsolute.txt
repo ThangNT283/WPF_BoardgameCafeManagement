@@ -1,0 +1,14 @@
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\bin\Debug\net8.0-windows\BusinessObjects.deps.json
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\bin\Debug\net8.0-windows\BusinessObjects.runtimeconfig.json
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\bin\Debug\net8.0-windows\BusinessObjects.dll
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\bin\Debug\net8.0-windows\BusinessObjects.pdb
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.csproj.AssemblyReference.cache
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.AssemblyInfoInputs.cache
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.AssemblyInfo.cs
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.csproj.CoreCompileInputs.cache
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.dll
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\refint\BusinessObjects.dll
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.pdb
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\BusinessObjects.genruntimeconfig.cache
+D:\FPTU Courses\Summer2024\PRN212\BoardgameCafeManagement\BusinessObjects\obj\Debug\net8.0-windows\ref\BusinessObjects.dll
