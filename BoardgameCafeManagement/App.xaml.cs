@@ -32,7 +32,7 @@ namespace BoardgameCafeManagement
             //LoginWindow loginWindow = new LoginWindow(ServiceProvider.GetRequiredService<IConfiguration>());
             //loginWindow.Show();
 
-            new AdminWindow().Show();
+            new StaffWindow().Show();
         }
 
         private void ConfigureServices(IServiceCollection services)

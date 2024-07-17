@@ -31,5 +31,9 @@ namespace Services
         {
             return new ObservableCollection<Table>(_tableRepo.GetBlankTables());
         }
+        public ObservableCollection<Table> GetInUsedTables()
+        {
+            return new ObservableCollection<Table>(_tableRepo.GetInUsedTables());
+        }
     }
 }

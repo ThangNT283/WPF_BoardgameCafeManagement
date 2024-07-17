@@ -10,5 +10,6 @@ namespace Repositories
         List<Table> SearchTableByNumber(string input);
         List<Table> SearchTableByCapacity(int num);
         List<Table> GetBlankTables();
+        List<Table> GetInUsedTables();
     }
 }

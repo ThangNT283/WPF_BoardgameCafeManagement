@@ -72,5 +72,12 @@ namespace DataAccessLayer
                 .Where(t => t.Status == false)
                 .ToList();
         }
+
+        public static List<Table> GetInUsedTables()
+        {
+            return _context.Tables
+                .Where(t => t.Status == true)
+                .ToList();
+        }
     }
 }

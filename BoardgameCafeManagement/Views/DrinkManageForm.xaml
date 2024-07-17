@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         Closing="Window_Closing"
-        Title="Staff Information Form" Height="400" Width="650">
+        Title="Staff Information Form" Height="700" Width="650">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="BorderThickness" Value="1"/>
@@ -97,9 +97,10 @@
 
             <StackPanel Grid.Column="0" Margin="20, 0, 0,0">
                 <TextBlock Text="ID" Style="{StaticResource Title}"/>
-                <TextBlock Text="Drink Number" Style="{StaticResource Title}"/>
-                <TextBlock Text="Capacity" Style="{StaticResource Title}"/>
+                <TextBlock Text="Name" Style="{StaticResource Title}"/>
+                <TextBlock Text="Category" Style="{StaticResource Title}"/>
                 <TextBlock Text="Status" Style="{StaticResource Title}"/>
+                <TextBlock Text="Variations" Style="{StaticResource Title}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left">
@@ -107,20 +108,51 @@
                          IsEnabled="False" Background="Gray"/>
                 <TextBlock Style="{StaticResource Error}"/>
                 
-                <TextBox Text="{Binding DrinkNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="{Binding DrinkNumberError, UpdateSourceTrigger=PropertyChanged}"
-                           Style="{StaticResource Error}"/>
-                
-                <TextBox Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="{Binding CapacityError, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding DrinkName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{Binding DrinkNameError, UpdateSourceTrigger=PropertyChanged}"
                            Style="{StaticResource Error}"/>
 
-                <ComboBox Width="300" Margin="10, 10, 10, 0"
-                          SelectedValue="{Binding Status, Converter={StaticResource StatusConverter}, ConverterParameter='BlankInUsed'}"
+                <ComboBox Width="300" Margin="10, 13, 10, 0" ItemsSource="{Binding Categories}"
+                          DisplayMemberPath="Name" SelectedValuePath="Id"
+                          SelectedValue="{Binding CategoryId, Mode=TwoWay}"/>
+                <TextBlock Style="{StaticResource Error}"/>
+
+                <ComboBox Width="300" Margin="10, 13, 10, 0"
+                          SelectedValue="{Binding Status, Converter={StaticResource StatusConverter}, ConverterParameter='ActiveInactive'}"
                           SelectedValuePath="Content">
-                    <ComboBoxItem Name="blank">Blank</ComboBoxItem>
-                    <ComboBoxItem Name="inUsed">In Used</ComboBoxItem>
+                    <ComboBoxItem Name="active">Active</ComboBoxItem>
+                    <ComboBoxItem Name="inactive">Inactive</ComboBoxItem>
                 </ComboBox>
+                <TextBlock Style="{StaticResource Error}"/>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Name" Style="{StaticResource Title}"></TextBlock>
+                        <TextBlock Text="Size S" Style="{StaticResource Title}"></TextBlock>
+                        <TextBlock Text="Size M" Style="{StaticResource Title}"></TextBlock>
+                        <TextBlock Text="Size L" Style="{StaticResource Title}"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="Price" Style="{StaticResource Title}" TextAlignment="Center"/>
+                        <TextBox Text="{Binding SPrice, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                        <TextBlock Text="{Binding SPriceError, UpdateSourceTrigger=PropertyChanged}"
+                           Style="{StaticResource Error}"/>
+                        
+                        <TextBox Text="{Binding MPrice, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                        <TextBlock Text="{Binding MPriceError, UpdateSourceTrigger=PropertyChanged}"
+                           Style="{StaticResource Error}"/>
+                        
+                        <TextBox Text="{Binding LPrice, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                        <TextBlock Text="{Binding LPriceError, UpdateSourceTrigger=PropertyChanged}"
+                           Style="{StaticResource Error}"/>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
         </Grid>
 

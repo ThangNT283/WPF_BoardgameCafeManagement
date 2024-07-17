@@ -11,5 +11,6 @@ namespace Repositories
         public List<Table> SearchTableByNumber(string input) => TableDAO.SearchTableByNumber(input);
         public List<Table> SearchTableByCapacity(int num) => TableDAO.SearchTableByCapacity(num);
         public List<Table> GetBlankTables() => TableDAO.GetBlankTables();
+        public List<Table> GetInUsedTables() => TableDAO.GetInUsedTables();
     }
 }

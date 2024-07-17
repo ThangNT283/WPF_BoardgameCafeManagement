@@ -19,5 +19,10 @@ namespace Services
         }
         public bool CreateDrink(Drink drink) => _drinkRepo.CreateDrink(drink);
         public bool UpdateDrink(Drink drink) => _drinkRepo.UpdateDrink(drink);
+        public Drink? GetDrinkByName(string name) => _drinkRepo.GetDrinkByName(name);
+        public ObservableCollection<Drink> SearchDrink(string input)
+        {
+            return new ObservableCollection<Drink>(_drinkRepo.SearchDrink(input));
+        }
     }
 }

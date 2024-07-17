@@ -26,6 +26,7 @@ namespace DataAccessLayer
             try
             {
                 _context.BillDetails.Add(detail);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -45,6 +46,7 @@ namespace DataAccessLayer
                     throw new Exception("Bill detail ID " + detail.Id + " not found!");
                 }
                 _context.Entry(detailToUpdate).CurrentValues.SetValues(detail);
+                _context.SaveChanges();
 
                 return true;
             }
@@ -66,6 +68,7 @@ namespace DataAccessLayer
                 }
 
                 _context.Bills.Remove(detailToDelete);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)

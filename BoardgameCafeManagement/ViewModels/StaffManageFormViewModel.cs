@@ -20,7 +20,7 @@ namespace BoardgameCafeManagement.ViewModels
         private static string SPACE_PATTERN = @"\s";
         private static string EMAIL_PATTERN = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 
-        #region Fields
+        #region Properties
         private int _id;
         public int Id
         {

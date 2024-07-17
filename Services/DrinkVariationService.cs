@@ -13,6 +13,9 @@ namespace Services
             _drinkVariationRepo = new DrinkVariationRepository();
         }
 
+        public bool CreateVariation(DrinkVariation variation) => _drinkVariationRepo.CreateVariation(variation);
+        public bool UpdateVariation(DrinkVariation variation) => _drinkVariationRepo.UpdateVariation(variation);
+        public bool DeleteVariation(int id) => _drinkVariationRepo.DeleteVariation(id);
         public ObservableCollection<DrinkVariation> GetVariationsByDrinkId(int drinkId)
         {
             return new ObservableCollection<DrinkVariation>(_drinkVariationRepo.GetVariationsByDrinkId(drinkId));
@@ -25,5 +28,6 @@ namespace Services
         {
             return new ObservableCollection<DrinkVariation>(_drinkVariationRepo.GetDrinksInCreatedDate(startTime, endTime));
         }
+        public int GetPriceByVariation(int drinkId, string variation) => _drinkVariationRepo.GetPriceByVariation(drinkId, variation);
     }
 }

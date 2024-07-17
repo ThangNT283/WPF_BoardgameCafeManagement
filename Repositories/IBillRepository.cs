@@ -8,6 +8,6 @@ namespace Repositories
         bool CreateBill(Bill bill);
         bool UpdateBill(Bill bill);
         bool DeleteBill(int billId);
-        List<Bill> SearchBill(int? tableId, int? customerId, DateTime? startTime, DateTime? endTime);
+        List<Bill> SearchBill(int? tableId, DateTime? startTime, DateTime? endTime);
     }
 }

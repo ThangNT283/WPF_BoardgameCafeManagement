@@ -8,5 +8,7 @@ namespace Repositories
         ObservableCollection<Drink> GetDrinks();
         bool CreateDrink(Drink drink);
         bool UpdateDrink(Drink drink);
+        Drink? GetDrinkByName(string name);
+        ObservableCollection<Drink> SearchDrink(string input);
     }
 }

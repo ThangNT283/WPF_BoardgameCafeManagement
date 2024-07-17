@@ -1,4 +1,6 @@
 ﻿using BusinessObjects;
+using System.Globalization;
+using System.Text;
 using System.Windows;
 
 namespace DataAccessLayer
@@ -19,6 +21,7 @@ namespace DataAccessLayer
             try
             {
                 _context.Drinks.Add(drink);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -38,6 +41,7 @@ namespace DataAccessLayer
                     throw new Exception("Drink ID " + drink.Id + " not found!");
                 }
                 _context.Entry(drinkToUpdate).CurrentValues.SetValues(drink);
+                _context.SaveChanges();
 
                 return true;
             }
@@ -46,6 +50,44 @@ namespace DataAccessLayer
                 MessageBox.Show(ex.Message);
                 return false;
             }
+        }
+
+        public static Drink? GetDrinkByName(string name)
+        {
+            string nameToLower = name.ToLower();
+            return _context.Drinks.FirstOrDefault(d => d.Name.ToLower().Equals(nameToLower));
+        }
+
+        public static List<Drink> SearchDrink(string input)
+        {
+            List<Drink> results = new List<Drink>();
+
+            foreach (Drink d in _context.Drinks)
+            {
+                if (RemoveDiacritics(d.Name.ToLower()).Contains(input.ToLower()))
+                {
+                    results.Add(d);
+                }
+            }
+
+            return results;
+        }
+
+        private static string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }

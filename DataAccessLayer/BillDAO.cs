@@ -21,6 +21,7 @@ namespace DataAccessLayer
             try
             {
                 _context.Bills.Add(bill);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -40,6 +41,7 @@ namespace DataAccessLayer
                     throw new Exception("Bill ID " + bill.Id + " not found!");
                 }
                 _context.Entry(billToUpdate).CurrentValues.SetValues(bill);
+                _context.SaveChanges();
 
                 return true;
             }
@@ -61,6 +63,8 @@ namespace DataAccessLayer
                 }
 
                 _context.Bills.Remove(billToDelete);
+                _context.SaveChanges();
+
                 return true;
             }
             catch (Exception ex)
@@ -70,11 +74,10 @@ namespace DataAccessLayer
             }
         }
 
-        public static List<Bill> SearchBill(int? tableId, int? customerId, DateTime? startTime, DateTime? endTime)
+        public static List<Bill> SearchBill(int? tableId, DateTime? startTime, DateTime? endTime)
         {
             return _context.Bills
                 .Where(b => !tableId.HasValue || b.TableId == tableId.Value)
-                .Where(b => !customerId.HasValue || b.CustomerId == customerId.Value)
                 .Where(b => !startTime.HasValue || b.PaidAt >= startTime.Value)
                 .Where(b => !endTime.HasValue || b.PaidAt <= endTime.Value)
                 .ToList();

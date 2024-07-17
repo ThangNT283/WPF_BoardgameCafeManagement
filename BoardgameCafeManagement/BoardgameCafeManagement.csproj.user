@@ -16,10 +16,19 @@
     <Compile Update="Views\PasswordUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\StaffBillView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\StaffManageForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\StaffManageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StaffTableView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StaffWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -37,6 +46,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DrinkManageForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StaffBillView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StaffTableView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StaffWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\TableManageForm.xaml">

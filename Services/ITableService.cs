@@ -11,5 +11,6 @@ namespace Repositories
         ObservableCollection<Table> SearchTableByNumber(string input);
         ObservableCollection<Table> SearchTableByCapacity(int num);
         ObservableCollection<Table> GetBlankTables();
+        ObservableCollection<Table> GetInUsedTables();
     }
 }

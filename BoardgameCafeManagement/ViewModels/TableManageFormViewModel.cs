@@ -18,7 +18,7 @@ namespace BoardgameCafeManagement.ViewModels
         private static string LETTER_PATTERN = @"[a-zA-Z]";
         private static string SPACE_PATTERN = @"\s";
 
-        #region Fields
+        #region Properties
         private int _id;
         public int Id
         {
@@ -212,6 +212,7 @@ namespace BoardgameCafeManagement.ViewModels
             catch (Exception ex)
             {
                 CapacityError = "Invalid capacity";
+                MessageBox.Show(ex.Message);
                 return false;
             }
 

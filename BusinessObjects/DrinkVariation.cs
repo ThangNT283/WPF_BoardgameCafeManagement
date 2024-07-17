@@ -15,6 +15,8 @@ public partial class DrinkVariation
 
     public DateTime CreatedAt { get; set; }
 
+    public bool Status { get; set; }
+
     public virtual ICollection<BillDetail> BillDetails { get; set; } = new List<BillDetail>();
 
     public virtual Drink Drink { get; set; } = null!;

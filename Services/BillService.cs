@@ -20,9 +20,9 @@ namespace Services
         public bool CreateBill(Bill bill) => _billRepo.CreateBill(bill);
         public bool UpdateBill(Bill bill) => _billRepo.UpdateBill(bill);
         public bool DeleteBill(int billId) => _billRepo.DeleteBill(billId);
-        public ObservableCollection<Bill> SearchBill(int? tableId, int? customerId, DateTime? startTime, DateTime? endTime)
+        public ObservableCollection<Bill> SearchBill(int? tableId, DateTime? startTime, DateTime? endTime)
         {
-            return new ObservableCollection<Bill>(_billRepo.SearchBill(tableId, customerId, startTime, endTime));
+            return new ObservableCollection<Bill>(_billRepo.SearchBill(tableId, startTime, endTime));
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BoardgameCafeManagement.Converters
                     case "ActiveInactive":
                         return status ? "Active" : "Inactive";
                     case "BlankInUsed":
-                        return status ? "In used" : "Blank";
+                        return status ? "In Used" : "Blank";
                     default:
                         return ""; // Default value for unknown parameter
                 }
@@ -31,7 +31,7 @@ namespace BoardgameCafeManagement.Converters
                     case "ActiveInactive":
                         return statusString == "Active";
                     case "BlankInUsed":
-                        return statusString == "In used";
+                        return statusString == "In Used";
                     default:
                         return false; // Default value for unknown parameter
                 }

@@ -19,8 +19,6 @@ public partial class BoardgameCafeContext : DbContext
 
     public virtual DbSet<BillDetail> BillDetails { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
-
     public virtual DbSet<Drink> Drinks { get; set; }
 
     public virtual DbSet<DrinkCategory> DrinkCategories { get; set; }
@@ -37,38 +35,36 @@ public partial class BoardgameCafeContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server = DESKTOP-PJOTRH2\\SQLEXPRESS; database = BoardgameCafe;uid=sa;pwd=123;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("server =(local); database = BoardgameCafe;uid=sa;pwd=123;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Bill>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__bill__3213E83F5F54182F");
+            entity.HasKey(e => e.Id).HasName("PK__bill__3213E83F89CAE50A");
 
             entity.ToTable("bill");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.CustomerName)
+                .HasMaxLength(128)
+                .HasColumnName("customer_name");
             entity.Property(e => e.NumberOfGames).HasColumnName("number_of_games");
             entity.Property(e => e.PaidAt)
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("paid_at");
             entity.Property(e => e.TableId).HasColumnName("table_id");
 
-            entity.HasOne(d => d.Customer).WithMany(p => p.Bills)
-                .HasForeignKey(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__bill__customer_i__5441852A");
-
             entity.HasOne(d => d.Table).WithMany(p => p.Bills)
                 .HasForeignKey(d => d.TableId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__bill__table_id__534D60F1");
+                .HasConstraintName("FK__bill__table_id__52593CB8");
         });
 
         modelBuilder.Entity<BillDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__bill_det__3213E83F1A417E3E");
+            entity.HasKey(e => e.Id).HasName("PK__bill_det__3213E83FB7291F71");
 
             entity.ToTable("bill_detail");
 
@@ -79,46 +75,21 @@ public partial class BoardgameCafeContext : DbContext
 
             entity.HasOne(d => d.Bill).WithMany(p => p.BillDetails)
                 .HasForeignKey(d => d.BillId)
-                .HasConstraintName("FK__bill_deta__bill___5812160E");
+                .HasConstraintName("FK__bill_deta__bill___571DF1D5");
 
             entity.HasOne(d => d.DrinkVariation).WithMany(p => p.BillDetails)
                 .HasForeignKey(d => d.DrinkVariationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__bill_deta__drink__571DF1D5");
-        });
-
-        modelBuilder.Entity<Customer>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__customer__3213E83F6AB5DA41");
-
-            entity.ToTable("customer");
-
-            entity.HasIndex(e => e.Email, "UQ__customer__AB6E6164938A59F9").IsUnique();
-
-            entity.HasIndex(e => e.Phone, "UQ__customer__B43B145F9CCC4EC4").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(320)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Name)
-                .HasMaxLength(64)
-                .HasColumnName("name");
-            entity.Property(e => e.Phone)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("phone");
+                .HasConstraintName("FK__bill_deta__drink__5629CD9C");
         });
 
         modelBuilder.Entity<Drink>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__drink__3213E83F7FE586CD");
+            entity.HasKey(e => e.Id).HasName("PK__drink__3213E83F86733981");
 
             entity.ToTable("drink");
 
-            entity.HasIndex(e => e.Name, "UQ__drink__72E12F1B73E481B4").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__drink__72E12F1B6383B71E").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
@@ -130,16 +101,16 @@ public partial class BoardgameCafeContext : DbContext
 
             entity.HasOne(d => d.Category).WithMany(p => p.Drinks)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__drink__category___440B1D61");
+                .HasConstraintName("FK__drink__category___403A8C7D");
         });
 
         modelBuilder.Entity<DrinkCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__drink_ca__3213E83F6F486E48");
+            entity.HasKey(e => e.Id).HasName("PK__drink_ca__3213E83F84C67B62");
 
             entity.ToTable("drink_category");
 
-            entity.HasIndex(e => e.Name, "UQ__drink_ca__72E12F1BB4316472").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__drink_ca__72E12F1B621AC90B").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
@@ -150,16 +121,18 @@ public partial class BoardgameCafeContext : DbContext
 
         modelBuilder.Entity<DrinkVariation>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__drink_va__3213E83F3AF4A6CD");
+            entity.HasKey(e => e.Id).HasName("PK__drink_va__3213E83FF0ED0726");
 
             entity.ToTable("drink_variation");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.DrinkId).HasColumnName("drink_id");
             entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.VariationName)
                 .HasMaxLength(32)
                 .IsUnicode(false)
@@ -167,19 +140,20 @@ public partial class BoardgameCafeContext : DbContext
 
             entity.HasOne(d => d.Drink).WithMany(p => p.DrinkVariations)
                 .HasForeignKey(d => d.DrinkId)
-                .HasConstraintName("FK__drink_var__drink__46E78A0C");
+                .HasConstraintName("FK__drink_var__drink__440B1D61");
         });
 
         modelBuilder.Entity<Game>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__game__3213E83FC18377AC");
+            entity.HasKey(e => e.Id).HasName("PK__game__3213E83F5B6CB0B1");
 
             entity.ToTable("game");
 
-            entity.HasIndex(e => e.Name, "UQ__game__72E12F1B5513D6BF").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__game__72E12F1BCACC1B25").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.MaxPlayerNumber).HasColumnName("max_player_number");
@@ -196,14 +170,16 @@ public partial class BoardgameCafeContext : DbContext
             entity.HasOne(d => d.Type).WithMany(p => p.Games)
                 .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__game__type_id__4D94879B");
+                .HasConstraintName("FK__game__type_id__4CA06362");
         });
 
         modelBuilder.Entity<GameType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__game_typ__3213E83F6C84C598");
+            entity.HasKey(e => e.Id).HasName("PK__game_typ__3213E83FA4546938");
 
             entity.ToTable("game_type");
+
+            entity.HasIndex(e => e.Name, "UQ__game_typ__72E12F1BC7553DB8").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
@@ -214,15 +190,15 @@ public partial class BoardgameCafeContext : DbContext
 
         modelBuilder.Entity<Staff>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__staff__3213E83F63AD9173");
+            entity.HasKey(e => e.Id).HasName("PK__staff__3213E83FDDF9A509");
 
             entity.ToTable("staff");
 
-            entity.HasIndex(e => e.Email, "UQ__staff__AB6E6164C7991089").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__staff__AB6E61644436A811").IsUnique();
 
-            entity.HasIndex(e => e.Phone, "UQ__staff__B43B145FC5993182").IsUnique();
+            entity.HasIndex(e => e.Phone, "UQ__staff__B43B145F0DA41C1C").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__staff__F3DBC5722D86C18E").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__staff__F3DBC572F0B9DE95").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Email)
@@ -250,11 +226,11 @@ public partial class BoardgameCafeContext : DbContext
 
         modelBuilder.Entity<Table>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__table__3213E83FA201B1EF");
+            entity.HasKey(e => e.Id).HasName("PK__table__3213E83FF81DE9F8");
 
             entity.ToTable("table");
 
-            entity.HasIndex(e => e.TableNumber, "UQ__table__21B232CE2CDEB9C5").IsUnique();
+            entity.HasIndex(e => e.TableNumber, "UQ__table__21B232CEDD1DC9CA").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Capacity).HasColumnName("capacity");
