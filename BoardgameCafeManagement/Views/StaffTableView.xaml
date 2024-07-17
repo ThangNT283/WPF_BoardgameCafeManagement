@@ -8,6 +8,7 @@
       mc:Ignorable="d" 
       xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels"
       d:DataContext="{d:DesignInstance Type=viewmodels:StaffTableViewModel}"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       d:DesignHeight="1080" d:DesignWidth="1440"
       Title="StaffTableView">
     <Page.Resources>
@@ -69,6 +70,35 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#382287"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="Width" Value="360"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4e34c2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#271d64"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <conv:StatusToComboBoxConverter x:Key="StatusConverter" />
     </Page.Resources>
     <Grid>
@@ -90,17 +120,18 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Table Number" Style="{StaticResource Title}"/>
-                    <TextBox Text="{Binding SelectedTable.TableNumber}" Width="200" Height="45"></TextBox>
+                    <TextBox Text="{Binding SelectedTableNumber}" Width="200" Height="45"></TextBox>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Status" Style="{StaticResource Title}"/>
-                    <ComboBox Width="200" Margin="10, 10, 10, 0" FontSize="20"
-                          SelectedValue="{Binding SelectedTable.Status, Converter={StaticResource StatusConverter}, ConverterParameter='BlankInUsed'}"
+                    <ComboBox Width="200" Margin="8" FontSize="20"
+                          SelectedValue="{Binding Status, Converter={StaticResource StatusConverter}, ConverterParameter='BlankInUsed'}"
                           SelectedValuePath="Content">
                         <ComboBoxItem Name="blank">Blank</ComboBoxItem>
                         <ComboBoxItem Name="inUsed">In Used</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
+                <Button Content="Update" Command="{Binding UpdateTable}" Height="40" Width="125" FontSize="25"/>
             </StackPanel>
         </Grid>
 
@@ -111,6 +142,12 @@
                  FontSize="20" AutoGenerateColumns="False"
                  Margin="20, 0, 0, 20"
                  Background="Transparent" RowBackground="Transparent">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding TableSelectionChanged}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Table ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Table Number" Binding="{Binding TableNumber}"/>

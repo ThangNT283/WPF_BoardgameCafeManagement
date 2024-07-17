@@ -1,17 +1,17 @@
 ﻿using BoardgameCafeManagement.Commands;
-using BoardgameCafeManagement.Views;
 using BusinessObjects;
+using BusinessObjects.Builders;
+using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Services;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace BoardgameCafeManagement.ViewModels
 {
     public class StaffTableViewModel : ViewModelBase
     {
-        private readonly BoardgameCafeContext _context;
         private readonly ITableService _tableService;
-        private readonly TableManageView _tableManageView;
 
         #region Fields
         private ObservableCollection<Table> _tables;
@@ -20,8 +20,8 @@ namespace BoardgameCafeManagement.ViewModels
             get { return _tables; }
             set { _tables = value; OnPropertyChanged(nameof(Tables)); }
         }
-        private Table _selectedTable;
-        public Table SelectedTable
+        private Table? _selectedTable;
+        public Table? SelectedTable
         {
             get { return _selectedTable; }
             set { _selectedTable = value; OnPropertyChanged(nameof(SelectedTable)); }
@@ -36,67 +36,77 @@ namespace BoardgameCafeManagement.ViewModels
         public bool Status
         {
             get { return _status; }
-            set { _status = SelectedTable.Status; OnPropertyChanged(nameof(Status)); }
+            set { _status = value; OnPropertyChanged(nameof(Status)); }
         }
-        private string _selectedTableNumber;
-        public string SelectedTableNumber
+        private string? _selectedTableNumber;
+        public string? SelectedTableNumber
         {
             get { return _selectedTableNumber; }
-            set { _selectedTableNumber = SelectedTable.TableNumber; OnPropertyChanged(nameof(SelectedTableNumber)); }
+            set { _selectedTableNumber = value; OnPropertyChanged(nameof(SelectedTableNumber)); }
         }
         #endregion
 
         #region Commands
-        public RelayCommand RefreshList { get; }
-        public RelayCommand CreateTable { get; }
+        public RelayCommand TableSelectionChanged { get; }
         public RelayCommand UpdateTable { get; }
-        public RelayCommand SearchTable { get; }
         #endregion
 
-        public StaffTableViewModel() //TableManageView tableManageView
+        public StaffTableViewModel()
         {
-            _context = new BoardgameCafeContext();
             _tableService = new TableService();
-            //_tableManageView = tableManageView;
 
-            Refresh();
+            Tables = _tableService.GetTables();
 
-            //RefreshList = new RelayCommand(Refresh);
-            //CreateTable = new RelayCommand(Create);
-            //UpdateTable = new RelayCommand(Update);
-            //SearchTable = new RelayCommand(Search);
+            TableSelectionChanged = new RelayCommand(LoadDataFields);
+            UpdateTable = new RelayCommand(UpdateStatus);
         }
 
         #region Actions
+        private void LoadDataFields()
+        {
+            if (SelectedTable != null)
+            {
+                SelectedTableNumber = SelectedTable.TableNumber;
+                Status = SelectedTable.Status;
+            }
+        }
+
+        private void UpdateStatus()
+        {
+            if (SelectedTableNumber.IsNullOrEmpty())
+            {
+                MessageBox.Show("Please choose a table to update");
+                return;
+            }
+
+            ITableBuilder tableBuilder = new TableBuilder();
+            Table table = tableBuilder
+                .SetId(SelectedTable.Id)
+                .SetTableNumber(SelectedTableNumber)
+                .SetCapacity(SelectedTable.Capacity)
+                .SetStatus(Status)
+                .Build();
+            bool isSuccess = _tableService.UpdateTable(table);
+            if (isSuccess)
+            {
+                MessageBox.Show("Update table successfully!");
+            }
+            else
+            {
+                MessageBox.Show("Failed to update table");
+            }
+
+            Refresh();
+        }
+
         private void Refresh()
         {
-            Tables = new ObservableCollection<Table>(_context.Tables);
-            //SearchInput = string.Empty;
-        }
-        //private void Create()
-        //{
-        //    new TableManageForm(_tableManageView, "create", null).Show();
-        //}
-        //private void Update()
-        //{
-        //    if (SelectedTable == null)
-        //    {
-        //        MessageBox.Show("Please choose a table to edit");
-        //        return;
-        //    }
-        //    new TableManageForm(_tableManageView, "update", SelectedTable).Show();
-        //}
-        //private void Search()
-        //{
-        //    if (SearchInput.IsNullOrEmpty())
-        //    {
-        //        Refresh();
-        //        return;
-        //    }
+            SelectedTableNumber = "";
+            Status = true;
+            SelectedTable = null;
 
-        //    SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
-        //    //Tables = _tableService.SearchTable(SearchInput);
-        //}
+            Tables = _tableService.GetTables();
+        }
         #endregion
     }
 }

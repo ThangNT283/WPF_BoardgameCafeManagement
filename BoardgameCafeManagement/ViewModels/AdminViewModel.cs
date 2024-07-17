@@ -14,6 +14,7 @@ namespace BoardgameCafeManagement.ViewModels
 
         public RelayCommand BillManage { get; }
         public RelayCommand DrinkManage { get; }
+        public RelayCommand GameManage { get; }
         public RelayCommand StaffManage { get; }
         public RelayCommand TableManage { get; }
 
@@ -21,6 +22,7 @@ namespace BoardgameCafeManagement.ViewModels
         {
             BillManage = new RelayCommand(OpenBillManage);
             DrinkManage = new RelayCommand(OpenDrinkManage);
+            GameManage = new RelayCommand(OpenGameManage);
             StaffManage = new RelayCommand(OpenStaffManage);
             TableManage = new RelayCommand(OpenTableManage);
         }
@@ -33,6 +35,11 @@ namespace BoardgameCafeManagement.ViewModels
         public void OpenDrinkManage()
         {
             MainContent = new DrinkManageView();
+        }
+
+        public void OpenGameManage()
+        {
+            MainContent = new GameManageView();
         }
 
         public void OpenStaffManage()

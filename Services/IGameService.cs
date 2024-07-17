@@ -8,7 +8,7 @@ namespace Repositories
         ObservableCollection<Game> GetGames();
         bool CreateGame(Game game);
         bool UpdateGame(Game game);
-        bool DeleteGame(int typeId);
+        bool DeleteGame(int id);
         ObservableCollection<Game> SearchGameByName(string input);
         ObservableCollection<Game> SearchGameByType(int typeId);
         ObservableCollection<Game> SearchGameByRangePlayerNumber(int? min, int? max);

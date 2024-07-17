@@ -19,6 +19,7 @@ namespace DataAccessLayer
             try
             {
                 _context.Games.Add(game);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -38,6 +39,7 @@ namespace DataAccessLayer
                     throw new Exception("Game ID " + game.Id + " not found!");
                 }
                 _context.Entry(gameToUpdate).CurrentValues.SetValues(game);
+                _context.SaveChanges();
 
                 return true;
             }
@@ -48,17 +50,19 @@ namespace DataAccessLayer
             }
         }
 
-        public static bool DeleteGame(int typeId)
+        public static bool DeleteGame(int id)
         {
             try
             {
-                Game? gameToDelete = _context.Games.Find(typeId);
+                Game? gameToDelete = _context.Games.Find(id);
                 if (gameToDelete == null)
                 {
-                    throw new Exception("Game type ID " + typeId + " not found!");
+                    throw new Exception("Game ID " + id + " not found!");
                 }
 
                 _context.Games.Remove(gameToDelete);
+                _context.SaveChanges();
+
                 return true;
             }
             catch (Exception ex)

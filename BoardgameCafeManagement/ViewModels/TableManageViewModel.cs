@@ -12,7 +12,6 @@ namespace BoardgameCafeManagement.ViewModels
 {
     public class TableManageViewModel : ViewModelBase
     {
-        private readonly BoardgameCafeContext _context;
         private readonly ITableService _tableService;
         private readonly TableManageView _tableManageView;
 
@@ -46,7 +45,6 @@ namespace BoardgameCafeManagement.ViewModels
 
         public TableManageViewModel(TableManageView tableManageView)
         {
-            _context = new BoardgameCafeContext();
             _tableService = new TableService();
             _tableManageView = tableManageView;
 
@@ -61,7 +59,7 @@ namespace BoardgameCafeManagement.ViewModels
         #region Actions
         private void Refresh()
         {
-            Tables = new ObservableCollection<Table>(_context.Tables);
+            Tables = _tableService.GetTables();
             SearchInput = string.Empty;
         }
         private void Create()

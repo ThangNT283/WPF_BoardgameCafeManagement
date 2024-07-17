@@ -39,6 +39,12 @@
     <Page Update="Views\BillManageView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\GameManageForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GameManageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -13,12 +13,16 @@
     <None Remove="Images\bg.jfif" />
     <None Remove="Images\bg.png" />
     <None Remove="Images\bill_icon.png" />
+    <None Remove="Images\delete_icon.png" />
     <None Remove="Images\edit_icon.png" />
     <None Remove="Images\refresh_icon.png" />
     <None Remove="Images\search_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\delete_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\search_icon.png" />
   </ItemGroup>
 
@@ -62,7 +66,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\GameManageForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\DrinkManageForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GameManageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\TableManageForm.xaml.cs">

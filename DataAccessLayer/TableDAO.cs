@@ -40,6 +40,7 @@ namespace DataAccessLayer
                 {
                     throw new Exception("Table ID " + table.Id + " not found!");
                 }
+
                 _context.Entry(tableToUpdate).CurrentValues.SetValues(table);
                 _context.SaveChanges();
 

@@ -62,7 +62,7 @@
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <RadioButton Content="Bills" Command="{Binding BillManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup" Tag="/Images/bill_icon.png"/>
                     <RadioButton Content="Drinks" Command="{Binding DrinkManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
-                    <RadioButton Content="Games" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
+                    <RadioButton Content="Games" Command="{Binding GameManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
                     <RadioButton Content="Tables" Command="{Binding TableManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
                     <RadioButton Content="Staffs" Command="{Binding StaffManage}" Style="{StaticResource TagButtonStyle}" GroupName="TabGroup"/>
             </StackPanel>

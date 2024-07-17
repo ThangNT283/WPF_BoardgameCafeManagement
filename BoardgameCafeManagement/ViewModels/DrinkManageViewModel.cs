@@ -12,7 +12,6 @@ namespace BoardgameCafeManagement.ViewModels
 {
     public class DrinkManageViewModel : ViewModelBase
     {
-        private readonly BoardgameCafeContext _context;
         private readonly IDrinkService _drinkService;
         private readonly DrinkManageView _drinkManageView;
 
@@ -46,7 +45,6 @@ namespace BoardgameCafeManagement.ViewModels
 
         public DrinkManageViewModel(DrinkManageView drinkManageView)
         {
-            _context = new BoardgameCafeContext();
             _drinkService = new DrinkService();
             _drinkManageView = drinkManageView;
 
@@ -61,7 +59,7 @@ namespace BoardgameCafeManagement.ViewModels
         #region Actions
         private void Refresh()
         {
-            Drinks = new ObservableCollection<Drink>(_context.Drinks);
+            Drinks = _drinkService.GetDrinks();
             SearchInput = string.Empty;
         }
         private void Create()

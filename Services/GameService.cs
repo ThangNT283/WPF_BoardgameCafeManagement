@@ -19,7 +19,7 @@ namespace Services
         }
         public bool CreateGame(Game game) => _gameRepo.CreateGame(game);
         public bool UpdateGame(Game game) => _gameRepo.UpdateGame(game);
-        public bool DeleteGame(int typeId) => _gameRepo.DeleteGame(typeId);
+        public bool DeleteGame(int id) => _gameRepo.DeleteGame(id);
         public ObservableCollection<Game> SearchGameByName(string input)
         {
             return new ObservableCollection<Game>(_gameRepo.SearchGameByName(input));

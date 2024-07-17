@@ -7,7 +7,7 @@ namespace Repositories
         List<Game> GetGames();
         bool CreateGame(Game game);
         bool UpdateGame(Game game);
-        bool DeleteGame(int typeId);
+        bool DeleteGame(int id);
         List<Game> SearchGameByName(string input);
         List<Game> SearchGameByType(int typeId);
         List<Game> SearchGameByRangePlayerNumber(int? min, int? max);
