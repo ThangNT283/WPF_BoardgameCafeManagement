@@ -114,7 +114,7 @@
                 <DataGridTextColumn Header="Drink ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Category ID" Binding="{Binding CategoryId}"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="On Sale" Binding="{Binding Status}"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>

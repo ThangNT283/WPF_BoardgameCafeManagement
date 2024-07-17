@@ -99,7 +99,7 @@
                 <TextBlock Text="ID" Style="{StaticResource Title}"/>
                 <TextBlock Text="Table Number" Style="{StaticResource Title}"/>
                 <TextBlock Text="Capacity" Style="{StaticResource Title}"/>
-                <TextBlock Text="Status" Style="{StaticResource Title}"/>
+                <TextBlock Text="Blank" Style="{StaticResource Title}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left">

@@ -99,7 +99,7 @@
                 <TextBlock Text="ID" Style="{StaticResource Title}"/>
                 <TextBlock Text="Name" Style="{StaticResource Title}"/>
                 <TextBlock Text="Category" Style="{StaticResource Title}"/>
-                <TextBlock Text="Status" Style="{StaticResource Title}"/>
+                <TextBlock Text="On Sale" Style="{StaticResource Title}"/>
                 <TextBlock Text="Variations" Style="{StaticResource Title}"/>
             </StackPanel>
 
@@ -117,14 +117,10 @@
                           SelectedValue="{Binding CategoryId, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource Error}"/>
 
-                <ComboBox Width="300" Margin="10, 13, 10, 0"
-                          SelectedValue="{Binding Status, Converter={StaticResource StatusConverter}, ConverterParameter='ActiveInactive'}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Name="active">Active</ComboBoxItem>
-                    <ComboBoxItem Name="inactive">Inactive</ComboBoxItem>
-                </ComboBox>
-                <TextBlock Style="{StaticResource Error}"/>
-                
+                <Viewbox Height="40" Margin="0, 0, 0, 10">
+                    <CheckBox IsChecked="{Binding Status}"/>
+                </Viewbox>
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

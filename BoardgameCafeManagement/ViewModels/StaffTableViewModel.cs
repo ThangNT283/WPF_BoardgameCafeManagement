@@ -102,7 +102,7 @@ namespace BoardgameCafeManagement.ViewModels
         private void Refresh()
         {
             SelectedTableNumber = "";
-            Status = true;
+            Status = false;
             SelectedTable = null;
 
             Tables = _tableService.GetTables();

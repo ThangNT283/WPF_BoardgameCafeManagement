@@ -115,7 +115,7 @@
                 <DataGridTextColumn Header="Table ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Table Number" Binding="{Binding TableNumber}"/>
                 <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Blank" Binding="{Binding Status}"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>

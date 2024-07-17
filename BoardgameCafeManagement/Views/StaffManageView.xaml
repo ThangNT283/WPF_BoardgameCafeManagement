@@ -115,7 +115,7 @@
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Available" Binding="{Binding Status}"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>

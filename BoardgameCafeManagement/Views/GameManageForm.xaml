@@ -101,7 +101,7 @@
                 <TextBlock Text="Min. Player" Style="{StaticResource Title}"/>
                 <TextBlock Text="Max. Player" Style="{StaticResource Title}"/>
                 <TextBlock Text="Type" Style="{StaticResource Title}"/>
-                <TextBlock Text="Status" Style="{StaticResource Title}"/>
+                <TextBlock Text="In Used" Style="{StaticResource Title}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left">
@@ -126,12 +126,9 @@
                           SelectedValue="{Binding GameTypeId, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource Error}"/>
 
-                <ComboBox Width="300" Margin="10, 13, 10, 0"
-                          SelectedValue="{Binding Status, Converter={StaticResource StatusConverter}, ConverterParameter='AvailableInUsed'}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem>Available</ComboBoxItem>
-                    <ComboBoxItem>In Used</ComboBoxItem>
-                </ComboBox>
+                <Viewbox Height="40" Margin="0, 0, 0, 10">
+                    <CheckBox IsChecked="{Binding Status}"/>
+                </Viewbox>
             </StackPanel>
         </Grid>
 

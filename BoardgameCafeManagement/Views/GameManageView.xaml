@@ -122,7 +122,7 @@
                 <DataGridTextColumn Header="Min. Player" Binding="{Binding MinPlayerNumber}"/>
                 <DataGridTextColumn Header="Max. Player" Binding="{Binding MaxPlayerNumber}"/>
                 <DataGridTextColumn Header="Type ID" Binding="{Binding TypeId}"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="In Used" Binding="{Binding Status}"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>
