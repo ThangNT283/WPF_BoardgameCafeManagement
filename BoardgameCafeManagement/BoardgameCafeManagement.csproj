@@ -75,6 +75,9 @@
     <Compile Update="Views\GameManageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\StaffGameView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\TableManageForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

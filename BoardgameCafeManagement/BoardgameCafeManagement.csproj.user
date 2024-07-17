@@ -57,6 +57,9 @@
     <Page Update="Views\StaffBillView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\StaffGameView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\StaffTableView.xaml">
       <SubType>Designer</SubType>
     </Page>

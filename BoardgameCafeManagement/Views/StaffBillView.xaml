@@ -121,7 +121,7 @@
             <DataGrid Margin="34,259,188,10" Grid.Column="0" FontSize="25" Foreground="White"
                   ItemsSource="{Binding DrinkTables, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedDrink, Mode=TwoWay}"
-                  AutoGenerateColumns="False" IsReadOnly="True"
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
                   Background="Transparent" RowBackground="Transparent" Grid.ColumnSpan="2">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -164,7 +164,7 @@
                 <DataGrid FontSize="28" Foreground="White"
                   ItemsSource="{Binding OrderItems, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   SelectedItem="{Binding SelectedItem}"
-                  AutoGenerateColumns="False" IsReadOnly="True"
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
                   Background="Transparent" RowBackground="Transparent" Height="383">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding DrinkName}"/>

@@ -13,15 +13,13 @@ namespace BoardgameCafeManagement.ViewModels
         }
 
         public RelayCommand BillManage { get; }
-        //public RelayCommand DrinkManage { get; }
-        //public RelayCommand StaffManage { get; }
+        public RelayCommand GameManage { get; }
         public RelayCommand TableManage { get; }
 
         public StaffViewModel()
         {
             BillManage = new RelayCommand(OpenBillManage);
-            //DrinkManage = new RelayCommand(OpenDrinkManage);
-            //StaffManage = new RelayCommand(OpenStaffManage);
+            GameManage = new RelayCommand(OpenGameManage);
             TableManage = new RelayCommand(OpenTableManage);
         }
 
@@ -29,17 +27,10 @@ namespace BoardgameCafeManagement.ViewModels
         {
             MainContent = new StaffBillView();
         }
-
-        //public void OpenDrinkManage()
-        //{
-        //    MainContent = new DrinkManageView();
-        //}
-
-        //public void OpenStaffManage()
-        //{
-        //    MainContent = new StaffManageView();
-        //}
-
+        public void OpenGameManage()
+        {
+            MainContent = new StaffGameView();
+        }
         public void OpenTableManage()
         {
             MainContent = new StaffTableView();

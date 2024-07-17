@@ -137,7 +137,7 @@
                  ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}"
                  SelectedItem="{Binding SelectedTable}"
                  FontSize="20" AutoGenerateColumns="False"
-                 Margin="20, 0, 0, 20"
+                 Margin="20, 0, 0, 20" IsReadOnly="True" SelectionMode="Single"
                  Background="Transparent" RowBackground="Transparent">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
