@@ -1,5 +1,4 @@
-﻿using BoardgameCafeManagement.Views;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows;
@@ -29,10 +28,10 @@ namespace BoardgameCafeManagement
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            //LoginWindow loginWindow = new LoginWindow(ServiceProvider.GetRequiredService<IConfiguration>());
-            //loginWindow.Show();
+            LoginWindow loginWindow = new LoginWindow(ServiceProvider.GetRequiredService<IConfiguration>());
+            loginWindow.Show();
 
-            new StaffWindow().Show();
+            //new StaffWindow().Show();
         }
 
         private void ConfigureServices(IServiceCollection services)

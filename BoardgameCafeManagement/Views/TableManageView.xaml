@@ -80,12 +80,12 @@
 
             <StackPanel Grid.Column="1" Orientation="Horizontal"
                         HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <TextBox Text="{Binding SearchInput, UpdateSourceTrigger=PropertyChanged}"/>
+                <!--<TextBox Text="{Binding SearchInput, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Command="{Binding SearchTable}" Style="{StaticResource CircleButtonStyle}" ToolTip="Search">
                     <Button.Content>
                         <Image Source="/Images/search_icon.png" Margin="15"/>
                     </Button.Content>
-                </Button>
+                </Button>-->
                 <Button Command="{Binding RefreshList}" Style="{StaticResource CircleButtonStyle}" ToolTip="Refresh">
                     <Button.Content>
                         <Image Source="/Images/refresh_icon.png" Margin="5"/>
@@ -115,7 +115,7 @@
                 <DataGridTextColumn Header="Table ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Table Number" Binding="{Binding TableNumber}"/>
                 <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}"/>
-                <DataGridTextColumn Header="Blank" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="In Used" Binding="{Binding Status}"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>

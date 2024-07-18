@@ -1,4 +1,5 @@
 ﻿using BoardgameCafeManagement.Commands;
+using BoardgameCafeManagement.Views;
 using BusinessObjects;
 using Microsoft.Extensions.Configuration;
 using Repositories;
@@ -11,6 +12,7 @@ namespace BoardgameCafeManagement.ViewModels
     {
         private readonly IConfiguration _configuration;
         private readonly IStaffService _staffServ;
+        private readonly LoginWindow _loginWindow;
 
         private string _credential;
         public string Credential
@@ -28,10 +30,11 @@ namespace BoardgameCafeManagement.ViewModels
 
         public RelayCommand LoginCommand { get; }
 
-        public LoginViewModel(IConfiguration configuration)
+        public LoginViewModel(IConfiguration configuration, LoginWindow view)
         {
             _configuration = configuration;
             _staffServ = new StaffService();
+            _loginWindow = view;
 
             LoginCommand = new RelayCommand(Login);
         }
@@ -51,10 +54,8 @@ namespace BoardgameCafeManagement.ViewModels
                 if (adminInfo != null && adminPassword != null &&
                     _credential == adminInfo && _password == adminPassword)
                 {
-                    MessageBox.Show("Login successfully!");
-                    //this.Hide();
-                    //AdminWindow mainWindow = new AdminWindow();
-                    //mainWindow.Show();
+                    new AdminWindow().Show();
+                    _loginWindow.Close();
                     return;
                 }
 
@@ -70,10 +71,8 @@ namespace BoardgameCafeManagement.ViewModels
 
                     Application.Current.Properties["User"] = _credential;
 
-                    MessageBox.Show("Login successfully!");
-                    //CustomerWindow customerWindow = new CustomerWindow();
-                    //customerWindow.Show();
-                    //this.Close();
+                    new StaffWindow().Show();
+                    _loginWindow.Close();
                 }
                 else
                 {

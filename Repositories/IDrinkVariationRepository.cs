@@ -7,6 +7,7 @@ namespace Repositories
         bool CreateVariation(DrinkVariation variation);
         bool UpdateVariation(DrinkVariation variation);
         bool DeleteVariation(int id);
+        DrinkVariation GetVariationById(int id);
         List<DrinkVariation> GetVariationsByDrinkId(int drinkId);
         List<DrinkVariation> GetDrinksInPriceRange(int? minPrice, int? maxPrice);
         List<DrinkVariation> GetDrinksInCreatedDate(DateTime? startTime, DateTime? endTime);

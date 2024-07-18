@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BoardgameCafeManagement.Views"
-        xmlns:conv="clr-namespace:BoardgameCafeManagement.Converters"
         xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DrinkManageFormViewModel}"
         mc:Ignorable="d"
         Background="#120727"
@@ -75,8 +74,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <conv:StatusToComboBoxConverter x:Key="StatusConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

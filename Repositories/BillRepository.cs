@@ -9,7 +9,7 @@ namespace Repositories
         public bool CreateBill(Bill bill) => BillDAO.CreateBill(bill);
         public bool UpdateBill(Bill bill) => BillDAO.UpdateBill(bill);
         public bool DeleteBill(int billId) => BillDAO.DeleteBill(billId);
-        public List<Bill> SearchBill(int? tableId, DateTime? startTime, DateTime? endTime)
-            => BillDAO.SearchBill(tableId, startTime, endTime);
+        public List<Bill> SearchBill(int? tableId, string? customerName, DateTime? startTime, DateTime? endTime)
+            => BillDAO.SearchBill(tableId, customerName, startTime, endTime);
     }
 }

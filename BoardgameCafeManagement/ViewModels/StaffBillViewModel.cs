@@ -115,6 +115,12 @@ namespace BoardgameCafeManagement.ViewModels
             get { return _variationOption; }
             set { _variationOption = value; OnPropertyChanged(nameof(VariationOptions)); }
         }
+        private int _total;
+        public int Total
+        {
+            get { return _total; }
+            set { _total = value; OnPropertyChanged(nameof(Total)); }
+        }
         #endregion
 
         #region Commands
@@ -164,9 +170,10 @@ namespace BoardgameCafeManagement.ViewModels
                     OrderItem newItem = new OrderItem();
                     newItem.DrinkName = SelectedDrink.Name;
                     newItem.DrinkSize = Size;
-                    newItem.Price = _drinkVariationService.GetPriceByVariation(SelectedDrink.Id, Size) * 1000;
+                    newItem.Price = _drinkVariationService.GetPriceByVariation(SelectedDrink.Id, Size);
                     newItem.Quantity = Convert.ToInt32(Quantity);
                     OrderItems.Add(newItem);
+                    Total += newItem.SubTotal;
 
                     ClearItemFields();
                 }
@@ -185,6 +192,7 @@ namespace BoardgameCafeManagement.ViewModels
                 return;
             }
 
+            Total -= SelectedItem.SubTotal;
             OrderItems.Remove(SelectedItem);
         }
 
@@ -202,7 +210,7 @@ namespace BoardgameCafeManagement.ViewModels
                         .Build());
                     if (isSuccess)
                     {
-                        int billId = _tableService.GetTables().OrderByDescending(i => i.Id).FirstOrDefault().Id;
+                        int billId = _billService.GetBills().OrderByDescending(i => i.Id).FirstOrDefault().Id;
                         foreach (OrderItem item in OrderItems)
                         {
                             int variationId = 0;
@@ -210,11 +218,12 @@ namespace BoardgameCafeManagement.ViewModels
                             if (drink != null)
                             {
                                 variationId = _drinkVariationService.GetVariationsByDrinkId(drink.Id)
-                                    .FirstOrDefault(v => v.VariationName == Size).Id;
+                                    .FirstOrDefault(v => v.VariationName == item.DrinkSize).Id;
                             }
                             else
                             {
                                 MessageBox.Show("Drink not found");
+                                return;
                             }
 
                             IBillDetailBuilder billDetailBuilder = new BillDetailBuilder();
@@ -228,6 +237,7 @@ namespace BoardgameCafeManagement.ViewModels
                         if (isSuccess)
                         {
                             MessageBox.Show("Bill is created successfully!");
+                            _tableService.GetTables().FirstOrDefault(t => t.TableNumber == TableNumber).Status = false;
                             ClearOrderFields();
                             ClearItemFields();
                         }
@@ -282,7 +292,9 @@ namespace BoardgameCafeManagement.ViewModels
         {
             TableNumber = "";
             CustomerName = "";
+            PlayedGames = "";
             Quantity = "";
+            OrderItems = new ObservableCollection<OrderItem>();
         }
         #endregion
 
@@ -504,7 +516,7 @@ namespace BoardgameCafeManagement.ViewModels
             }
         }
 
-        public decimal SubTotal
+        public int SubTotal
         {
             get { return _quantity * _price; }
         }

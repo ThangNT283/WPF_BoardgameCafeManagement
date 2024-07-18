@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BoardgameCafeManagement.Views"
-        xmlns:conv="clr-namespace:BoardgameCafeManagement.Converters"
         xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TableManageFormViewModel}"
         mc:Ignorable="d"
         Background="#120727"
@@ -12,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         Closing="Window_Closing"
-        Title="Staff Information Form" Height="400" Width="650">
+        Title="Table Information Form" Height="400" Width="650">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="BorderThickness" Value="1"/>
@@ -75,8 +74,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <conv:StatusToComboBoxConverter x:Key="StatusConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -99,7 +96,7 @@
                 <TextBlock Text="ID" Style="{StaticResource Title}"/>
                 <TextBlock Text="Table Number" Style="{StaticResource Title}"/>
                 <TextBlock Text="Capacity" Style="{StaticResource Title}"/>
-                <TextBlock Text="Blank" Style="{StaticResource Title}"/>
+                <TextBlock Text="In Used" Style="{StaticResource Title}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left">
@@ -115,12 +112,9 @@
                 <TextBlock Text="{Binding CapacityError, UpdateSourceTrigger=PropertyChanged}"
                            Style="{StaticResource Error}"/>
 
-                <ComboBox Width="300" Margin="10, 10, 10, 0"
-                          SelectedValue="{Binding Status, Converter={StaticResource StatusConverter}, ConverterParameter='BlankInUsed'}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Name="blank">Blank</ComboBoxItem>
-                    <ComboBoxItem Name="inUsed">In Used</ComboBoxItem>
-                </ComboBox>
+                <Viewbox Height="40" Margin="0, 0, 0, 10">
+                    <CheckBox IsChecked="{Binding Status}"/>
+                </Viewbox>
             </StackPanel>
         </Grid>
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BusinessObjects;
+﻿namespace BusinessObjects;
 
 public partial class DrinkVariation
 {
@@ -20,4 +17,9 @@ public partial class DrinkVariation
     public virtual ICollection<BillDetail> BillDetails { get; set; } = new List<BillDetail>();
 
     public virtual Drink Drink { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return VariationName;
+    }
 }

@@ -13,7 +13,7 @@ namespace DataAccessLayer
 
         public static List<Bill> GetBills()
         {
-            return _context.Bills.ToList();
+            return _context.Bills.OrderByDescending(b => b.PaidAt).ToList();
         }
 
         public static bool CreateBill(Bill bill)
@@ -74,10 +74,11 @@ namespace DataAccessLayer
             }
         }
 
-        public static List<Bill> SearchBill(int? tableId, DateTime? startTime, DateTime? endTime)
+        public static List<Bill> SearchBill(int? tableId, string? customerName, DateTime? startTime, DateTime? endTime)
         {
             return _context.Bills
                 .Where(b => !tableId.HasValue || b.TableId == tableId.Value)
+                .Where(b => string.IsNullOrEmpty(customerName) || b.CustomerName.Contains(customerName))
                 .Where(b => !startTime.HasValue || b.PaidAt >= startTime.Value)
                 .Where(b => !endTime.HasValue || b.PaidAt <= endTime.Value)
                 .ToList();

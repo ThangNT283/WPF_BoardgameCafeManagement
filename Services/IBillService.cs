@@ -9,6 +9,6 @@ namespace Repositories
         bool CreateBill(Bill bill);
         bool UpdateBill(Bill bill);
         bool DeleteBill(int billId);
-        ObservableCollection<Bill> SearchBill(int? tableId, DateTime? startTime, DateTime? endTime);
+        ObservableCollection<Bill> SearchBill(int? tableId, string? customerName, DateTime? startTime, DateTime? endTime);
     }
 }

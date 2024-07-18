@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Services;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace BoardgameCafeManagement.ViewModels
@@ -12,6 +13,10 @@ namespace BoardgameCafeManagement.ViewModels
     public class StaffTableViewModel : ViewModelBase
     {
         private readonly ITableService _tableService;
+
+        private static string SPECIAL_CHAR_PATTERN = @"[!@#$%^&*(),.?""':{}|<>]";
+        private static string LETTER_PATTERN = @"[a-zA-Z]";
+        private static string SPACE_PATTERN = @"\s";
 
         #region Fields
         private ObservableCollection<Table> _tables;
@@ -44,11 +49,24 @@ namespace BoardgameCafeManagement.ViewModels
             get { return _selectedTableNumber; }
             set { _selectedTableNumber = value; OnPropertyChanged(nameof(SelectedTableNumber)); }
         }
+        private string _capacity;
+        public string Capacity
+        {
+            get { return _capacity; }
+            set { _capacity = value; OnPropertyChanged(nameof(Capacity)); }
+        }
+        private string _capacityError;
+        public string CapacityError
+        {
+            get { return _capacityError; }
+            set { _capacityError = value; OnPropertyChanged(nameof(CapacityError)); }
+        }
         #endregion
 
         #region Commands
         public RelayCommand TableSelectionChanged { get; }
         public RelayCommand UpdateTable { get; }
+        public RelayCommand SearchTable { get; }
         #endregion
 
         public StaffTableViewModel()
@@ -59,6 +77,7 @@ namespace BoardgameCafeManagement.ViewModels
 
             TableSelectionChanged = new RelayCommand(LoadDataFields);
             UpdateTable = new RelayCommand(UpdateStatus);
+            SearchTable = new RelayCommand(Search);
         }
 
         #region Actions
@@ -99,13 +118,58 @@ namespace BoardgameCafeManagement.ViewModels
             Refresh();
         }
 
+        private void Search()
+        {
+            SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
+            Capacity = Capacity.Trim();
+
+            Tables = _tableService.SearchTableByNumber(SearchInput);
+            if (!Capacity.IsNullOrEmpty() && IsValidCapacity())
+            {
+                Tables = new ObservableCollection<Table>(Tables.
+                    Where(t => t.Capacity == Convert.ToInt32(Capacity)));
+            }
+        }
+
         private void Refresh()
         {
             SelectedTableNumber = "";
             Status = false;
             SelectedTable = null;
 
-            Tables = _tableService.GetTables();
+            Search();
+        }
+        #endregion
+
+        #region Validation
+        private bool IsValidCapacity()
+        {
+            Capacity = _capacity.Trim();
+            if (Regex.IsMatch(_capacity, SPECIAL_CHAR_PATTERN) ||
+                Regex.IsMatch(_capacity, SPACE_PATTERN) ||
+                Regex.IsMatch(_capacity, LETTER_PATTERN))
+            {
+                CapacityError = "Invalid";
+                return false;
+            }
+
+            try
+            {
+                if (!_capacity.IsNullOrEmpty() && Convert.ToInt32(_capacity) <= 0)
+                {
+                    CapacityError = "Invalid";
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                CapacityError = "Invalid";
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+
+            CapacityError = string.Empty;
+            return true;
         }
         #endregion
     }

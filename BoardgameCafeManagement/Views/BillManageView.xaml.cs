@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace BoardgameCafeManagement.Views
 {
     /// <summary>
-    /// Interaction logic for BillManageView.xaml
+    /// Interaction logic for StaffManageView.xaml
     /// </summary>
     public partial class BillManageView : Page
     {

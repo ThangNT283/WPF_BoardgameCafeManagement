@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BoardgameCafeManagement.Views"
+      xmlns:conv="clr-namespace:BoardgameCafeManagement.Converters"
       xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels"
       d:DataContext="{d:DesignInstance Type=viewmodels:StaffBillViewModel}"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -40,6 +41,14 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
+        <Style TargetType="TextBlock" x:Key="Information">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="15, 0, 15, 15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
         <Style TargetType="TextBlock" x:Key="Error">
             <Setter Property="Foreground" Value="Red"/>
             <Setter Property="FontSize" Value="15"/>
@@ -74,6 +83,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <conv:PriceConverter x:Key="PriceConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -169,9 +180,9 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding DrinkName}"/>
                         <DataGridTextColumn Header="Size" Binding="{Binding DrinkSize}"/>
-                        <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price, Converter={StaticResource PriceConverter}}"/>
                         <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-                        <DataGridTextColumn Header="Sub-total" Binding="{Binding SubTotal}"/>
+                        <DataGridTextColumn Header="Sub-total" Binding="{Binding SubTotal, Converter={StaticResource PriceConverter}}"/>
                     </DataGrid.Columns>
 
                     <DataGrid.ColumnHeaderStyle>
@@ -200,6 +211,10 @@
                     </DataGrid.CellStyle>
                 </DataGrid>
                 <Button Content="Delete" Command="{Binding DeleteItem}" Width="150" Height="75" FontSize="35" Margin="20" Background="Red"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="TOTAL: " FontSize="30" FontWeight="Bold" TextAlignment="Center" Foreground="#fdc111" Margin="50, 10, 0,10"/>
+                    <TextBlock Text="{Binding Total, Converter={StaticResource PriceConverter}}" Style="{StaticResource Information}" Margin="10" FontSize="30"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
 

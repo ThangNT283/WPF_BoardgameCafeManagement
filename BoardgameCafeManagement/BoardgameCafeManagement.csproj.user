@@ -10,9 +10,6 @@
     <Compile Update="Views\AdminWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\BillManageView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\PasswordUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,9 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\AdminWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\BillManageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\GameManageForm.xaml">
@@ -66,6 +60,9 @@
     <Page Update="Views\StaffWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\BillDetailCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\TableManageForm.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -73,6 +70,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DrinkManageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BillManageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\TableManageView.xaml">

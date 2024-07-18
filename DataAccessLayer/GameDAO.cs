@@ -80,7 +80,7 @@ namespace DataAccessLayer
             }
 
             return _context.Games
-                .Where(g => g.Name.Contains(input, StringComparison.OrdinalIgnoreCase))
+                .Where(g => g.Name.ToLower().Contains(input.ToLower()))
                 .ToList();
         }
 

@@ -1,11 +1,9 @@
 ﻿using BoardgameCafeManagement.Commands;
 using BoardgameCafeManagement.Views;
 using BusinessObjects;
-using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Services;
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace BoardgameCafeManagement.ViewModels
@@ -40,7 +38,7 @@ namespace BoardgameCafeManagement.ViewModels
         public RelayCommand RefreshList { get; }
         public RelayCommand CreateTable { get; }
         public RelayCommand UpdateTable { get; }
-        public RelayCommand SearchTable { get; }
+        //public RelayCommand SearchTable { get; }
         #endregion
 
         public TableManageViewModel(TableManageView tableManageView)
@@ -53,7 +51,7 @@ namespace BoardgameCafeManagement.ViewModels
             RefreshList = new RelayCommand(Refresh);
             CreateTable = new RelayCommand(Create);
             UpdateTable = new RelayCommand(Update);
-            SearchTable = new RelayCommand(Search);
+            //SearchTable = new RelayCommand(Search);
         }
 
         #region Actions
@@ -77,14 +75,7 @@ namespace BoardgameCafeManagement.ViewModels
         }
         private void Search()
         {
-            if (SearchInput.IsNullOrEmpty())
-            {
-                Refresh();
-                return;
-            }
 
-            SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
-            //Tables = _tableService.SearchTable(SearchInput);
         }
         #endregion
     }

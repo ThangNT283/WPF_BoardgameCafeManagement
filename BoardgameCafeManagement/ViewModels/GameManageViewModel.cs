@@ -114,7 +114,7 @@ namespace BoardgameCafeManagement.ViewModels
             }
 
             SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
-            //Games = _gameService.SearchGame(SearchInput);
+            Games = _gameService.SearchGameByName(SearchInput);
         }
         #endregion
     }

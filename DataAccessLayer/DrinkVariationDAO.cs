@@ -73,7 +73,10 @@ namespace DataAccessLayer
                 return false;
             }
         }
-
+        public static DrinkVariation GetVariationById(int id)
+        {
+            return _context.DrinkVariations.FirstOrDefault(v => v.Id == id);
+        }
         public static List<DrinkVariation> GetVariationsByDrinkId(int drinkId)
         {
             return _context.DrinkVariations.Where(v => v.DrinkId == drinkId).ToList();

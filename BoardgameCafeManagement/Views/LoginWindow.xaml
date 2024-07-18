@@ -12,9 +12,6 @@
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
-        <ImageSource x:Key="imgSource">/Images/bg.jfif</ImageSource>
-        <ImageBrush x:Key="bgImage" ImageSource="{DynamicResource imgSource}" Opacity="1"></ImageBrush>
-
         <Style x:Key="RoundedButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -40,7 +37,6 @@
         </Style>
     </Window.Resources>
     <Border CornerRadius="25" BorderBrush="White" BorderThickness="2" Padding="6" Background="#120727">
-            <!--Background="{DynamicResource bgImage}">-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -48,7 +44,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Background="LightGray">
-                <!--<TextBlock Text="Column 1" FontSize="20"/>-->
+                <Image Source="/Images/login-img.jpg" Width="1268" Height="712" HorizontalAlignment="Center"/>
             </StackPanel>
 
             <Grid Grid.Column="1" Background="Transparent" Margin="10">

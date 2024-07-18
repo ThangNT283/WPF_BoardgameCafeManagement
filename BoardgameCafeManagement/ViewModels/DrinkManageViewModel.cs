@@ -84,7 +84,7 @@ namespace BoardgameCafeManagement.ViewModels
             }
 
             SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
-            //Drinks = _drinkService.SearchDrink(SearchInput);
+            Drinks = _drinkService.SearchDrink(SearchInput);
         }
         #endregion
     }

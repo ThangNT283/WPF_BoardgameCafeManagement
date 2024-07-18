@@ -55,8 +55,13 @@ namespace DataAccessLayer
 
         public static List<Table> SearchTableByNumber(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return GetTables();
+            }
+
             return _context.Tables
-                .Where(t => t.TableNumber.Contains(input, StringComparison.OrdinalIgnoreCase))
+                .Where(t => t.TableNumber.ToLower().Contains(input.ToLower()))
                 .ToList();
         }
 

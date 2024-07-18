@@ -31,7 +31,9 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
+                var errorMessage = $"{ex.Message}\nInner Exception: {innerExceptionMessage}\n{ex.StackTrace}";
+                MessageBox.Show(errorMessage);
                 return false;
             }
         }

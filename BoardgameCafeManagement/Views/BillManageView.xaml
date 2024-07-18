@@ -3,44 +3,173 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BoardgameCafeManagement.Views" xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:BillManageViewModel}"
+      xmlns:local="clr-namespace:BoardgameCafeManagement.Views"
+      xmlns:viewmodels="clr-namespace:BoardgameCafeManagement.ViewModels"
+      d:DataContext="{d:DesignInstance Type=viewmodels:BillManageViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1440"
-      Title="BillManageView">
+      Title="StaffManageView">
+    <Page.Resources>
+        <Style x:Key="CircleButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#382287"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Width" Value="45"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="0, 0, 10, 10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="40">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4e34c2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#271d64"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
+        <Style TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Margin" Value="10, 10, 10, 10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="25">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Title">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Error">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-            <TextBlock Text="Bill" FontSize="90" Foreground="Wheat" Margin="20, 0, 0, 20"/>
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Row="1" Foreground="White" ItemsSource="{Binding Bills, UpdateSourceTrigger=PropertyChanged}"
-                  FontSize="30" Background="Transparent" RowBackground="Transparent"
-                  Margin="20, 0, 0, 20">
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                <TextBlock Text="BILLS" FontSize="90" Foreground="#fdc111" Margin="20, 0, 0, 20" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Table Number: " Style="{StaticResource Title}"/>
+                    <ComboBox Width="300" Margin="10, 13, 10, 0" ItemsSource="{Binding Tables}"
+                          DisplayMemberPath="TableNumber" SelectedValuePath="Id" Height="35"
+                          SelectedValue="{Binding TableId, Mode=TwoWay}"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Date: " Style="{StaticResource Title}"/>
+                    <Viewbox Height="45" Margin="0, 0, 0, 10">
+                        <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Viewbox>
+                    <Viewbox Height="45" Margin="0, 0, 0, 10">
+                        <DatePicker SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Viewbox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Customer Name: " Style="{StaticResource Title}"/>
+                    <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Command="{Binding SearchBill}" Style="{StaticResource CircleButtonStyle}" ToolTip="Search">
+                        <Button.Content>
+                            <Image Source="/Images/search_icon.png" Margin="10"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding RefreshList}" Style="{StaticResource CircleButtonStyle}" ToolTip="Refresh">
+                        <Button.Content>
+                            <Image Source="/Images/refresh_icon.png" Margin="5"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding ViewBill}" Style="{StaticResource CircleButtonStyle}" ToolTip="Add Staff">
+                        <Button.Content>
+                            <Image Source="/Images/view_icon.png"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+
+        <DataGrid Grid.Row="1" Foreground="White"
+                  ItemsSource="{Binding Bills, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedBill}"
+                  FontSize="20" AutoGenerateColumns="False"
+                  Margin="20, 0, 0, 20" IsReadOnly="True"
+                  Background="Transparent" RowBackground="Transparent">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Bill ID" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Table" Binding="{Binding Table}"/>
-                <DataGridTextColumn Header="Customer" Binding="{Binding Customer}"/>
-                <DataGridTextColumn Header="Game Numbers" Binding="{Binding NumberOfGames}"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Table ID" Binding="{Binding TableId}"/>
+                <DataGridTextColumn Header="Games Played" Binding="{Binding NumberOfGames}"/>
                 <DataGridTextColumn Header="Paid At" Binding="{Binding PaidAt}"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#362f68"/>
-                    <!-- Dark Gray -->
                     <Setter Property="Foreground" Value="White"/>
-                    <!-- White text color -->
-                    <Setter Property="BorderBrush" Value="#FF2F2F2F"/>
-                    <!-- Darker Gray border -->
+                    <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                    <!-- Border thickness -->
+                    <Setter Property="Padding" Value="15"/>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Padding" Value="15, 0, 15, 0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
         </DataGrid>
     </Grid>
 </Page>

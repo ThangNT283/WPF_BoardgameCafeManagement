@@ -12,16 +12,7 @@ namespace BoardgameCafeManagement
         public LoginWindow(IConfiguration configuration)
         {
             InitializeComponent();
-            DataContext = new LoginViewModel(configuration);
+            DataContext = new LoginViewModel(configuration, this);
         }
-
-        //private void btnClose_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var res = MessageBox.Show("The application will be closed. Continue?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        //    if (res == MessageBoxResult.Yes)
-        //    {
-        //        this.Close();
-        //    }
-        //}
     }
 }

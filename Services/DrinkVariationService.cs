@@ -16,6 +16,7 @@ namespace Services
         public bool CreateVariation(DrinkVariation variation) => _drinkVariationRepo.CreateVariation(variation);
         public bool UpdateVariation(DrinkVariation variation) => _drinkVariationRepo.UpdateVariation(variation);
         public bool DeleteVariation(int id) => _drinkVariationRepo.DeleteVariation(id);
+        public DrinkVariation GetVariationById(int id) => _drinkVariationRepo.GetVariationById(id);
         public ObservableCollection<DrinkVariation> GetVariationsByDrinkId(int drinkId)
         {
             return new ObservableCollection<DrinkVariation>(_drinkVariationRepo.GetVariationsByDrinkId(drinkId));
