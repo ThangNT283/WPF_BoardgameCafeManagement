@@ -55,6 +55,18 @@ namespace BoardgameCafeManagement.ViewModels
             get { return _total; }
             set { _total = value; OnPropertyChanged(nameof(Total)); }
         }
+        private int _gameTotal;
+        public int GameTotal
+        {
+            get { return _gameTotal; }
+            set { _gameTotal = value; OnPropertyChanged(nameof(GameTotal)); }
+        }
+        private int _drinkTotal;
+        public int DrinkTotal
+        {
+            get { return _drinkTotal; }
+            set { _drinkTotal = value; OnPropertyChanged(nameof(DrinkTotal)); }
+        }
         #endregion
 
         public BillDetailCardViewModel(Bill selectedBill)
@@ -78,8 +90,10 @@ namespace BoardgameCafeManagement.ViewModels
                     billDetail.DrinkVariation = _drinkVariationService.GetVariationById(billDetail.DrinkVariationId);
                     billDetail.DrinkVariation.Drink =
                         _drinkService.GetDrinks().FirstOrDefault(d => d.Id == billDetail.DrinkVariation.DrinkId);
-                    Total += billDetail.DrinkVariation.Price * billDetail.Quantity;
+                    DrinkTotal += billDetail.DrinkVariation.Price * billDetail.Quantity;
                 }
+                GameTotal += selectedBill.NumberOfGames * 5;
+                Total = DrinkTotal + GameTotal;
             }
         }
     }

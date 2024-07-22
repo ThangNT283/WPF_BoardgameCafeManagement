@@ -63,6 +63,7 @@ namespace BoardgameCafeManagement.ViewModels
         public RelayCommand RefreshList { get; }
         public RelayCommand ViewBill { get; }
         public RelayCommand SearchBill { get; }
+        public RelayCommand RefreshTableOption { get; }
         #endregion
 
         public BillManageViewModel()
@@ -71,11 +72,13 @@ namespace BoardgameCafeManagement.ViewModels
             _tableService = new TableService();
 
             Tables = _tableService.GetTables();
+            TableId = -1;
             Refresh();
 
             RefreshList = new RelayCommand(Refresh);
             ViewBill = new RelayCommand(View);
             SearchBill = new RelayCommand(Search);
+            RefreshTableOption = new RelayCommand(RefreshTable);
         }
 
         #region Actions
@@ -99,8 +102,18 @@ namespace BoardgameCafeManagement.ViewModels
         }
         private void Search()
         {
+            if (EndDate <= StartDate)
+            {
+                MessageBox.Show("End date must be later than start date");
+                return;
+            }
+
             CustomerName = Regex.Replace(CustomerName.Trim(), @"\s+", " ");
             Bills = _billService.SearchBill(TableId, CustomerName, StartDate, EndDate);
+        }
+        private void RefreshTable()
+        {
+            TableId = -1;
         }
         #endregion
     }

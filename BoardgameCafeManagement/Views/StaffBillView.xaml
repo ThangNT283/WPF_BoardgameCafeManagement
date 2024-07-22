@@ -120,7 +120,10 @@
                 <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="{Binding CustomerNameError, UpdateSourceTrigger=PropertyChanged}"
                            Style="{StaticResource Error}"/>
-                <TextBox Text="{Binding PlayedGames, UpdateSourceTrigger=PropertyChanged}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="{Binding PlayedGames, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    <Button Content="Calculate" Command="{Binding Calculate}" Height="40" Width="125" FontSize="25"/>
+                </StackPanel>
                 <TextBlock Text="{Binding PlayedGamesError, UpdateSourceTrigger=PropertyChanged}"
                            Style="{StaticResource Error}"/>
                 <StackPanel Orientation="Horizontal">

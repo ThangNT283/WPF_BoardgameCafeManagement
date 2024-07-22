@@ -13,8 +13,6 @@ namespace DataAccessLayer
         {
             try
             {
-                MessageBox.Show(variation.VariationName);
-
                 _context.DrinkVariations.Add(variation);
                 _context.SaveChanges();
 

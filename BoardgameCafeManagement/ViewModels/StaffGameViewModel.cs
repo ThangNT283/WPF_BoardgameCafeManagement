@@ -123,8 +123,11 @@ namespace BoardgameCafeManagement.ViewModels
 
         private void Search()
         {
-            SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
-            PlayerNumber = PlayerNumber.Trim();
+            if (SearchInput != null && PlayerNumber != null)
+            {
+                SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
+                PlayerNumber = PlayerNumber.Trim();
+            }
 
             Games = _gameService.SearchGameByName(SearchInput);
             if (!PlayerNumber.IsNullOrEmpty() && IsValidPlayerNumber())

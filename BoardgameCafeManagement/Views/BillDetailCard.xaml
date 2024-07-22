@@ -12,7 +12,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
-        Title="Bill Detail Card" Height="800" Width="650">
+        Title="Bill Detail Card" Height="850" Width="650">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Title">
             <Setter Property="Foreground" Value="White"/>
@@ -36,7 +36,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" VerticalAlignment="Center">
@@ -110,6 +110,14 @@
                     </Style>
                 </DataGrid.CellStyle>
             </DataGrid>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Game Total: " FontSize="20" FontWeight="Bold" TextAlignment="Center" Foreground="#fdc111" Margin="50, 10, 0,10"/>
+                <TextBlock Text="{Binding GameTotal, Converter={StaticResource PriceConverter}}" Style="{StaticResource Information}" Margin="10" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Drink Total: " FontSize="20" FontWeight="Bold" TextAlignment="Center" Foreground="#fdc111" Margin="50, 10, 0,10"/>
+                <TextBlock Text="{Binding DrinkTotal, Converter={StaticResource PriceConverter}}" Style="{StaticResource Information}" Margin="10" FontSize="20"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="TOTAL: " FontSize="25" FontWeight="Bold" TextAlignment="Center" Foreground="#fdc111" Margin="50, 10, 0,10"/>
                 <TextBlock Text="{Binding Total, Converter={StaticResource PriceConverter}}" Style="{StaticResource Information}" Margin="10" FontSize="25"/>

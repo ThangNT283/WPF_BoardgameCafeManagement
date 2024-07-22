@@ -120,8 +120,11 @@ namespace BoardgameCafeManagement.ViewModels
 
         private void Search()
         {
-            SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
-            Capacity = Capacity.Trim();
+            if (SearchInput != null && Capacity != null)
+            {
+                SearchInput = Regex.Replace(SearchInput.Trim(), @"\s+", " ");
+                Capacity = Capacity.Trim();
+            }
 
             Tables = _tableService.SearchTableByNumber(SearchInput);
             if (!Capacity.IsNullOrEmpty() && IsValidCapacity())

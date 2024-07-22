@@ -94,9 +94,14 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Table Number: " Style="{StaticResource Title}"/>
-                    <ComboBox Width="300" Margin="10, 13, 10, 0" ItemsSource="{Binding Tables}"
+                    <ComboBox Width="300" Margin="10, 13, 10, 10" ItemsSource="{Binding Tables}"
                           DisplayMemberPath="TableNumber" SelectedValuePath="Id" Height="35"
                           SelectedValue="{Binding TableId, Mode=TwoWay}"/>
+                    <Button Command="{Binding RefreshTableOption}" Style="{StaticResource CircleButtonStyle}" ToolTip="Refresh" Margin="10">
+                        <Button.Content>
+                            <Image Source="/Images/refresh_icon.png" Margin="5"/>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal">

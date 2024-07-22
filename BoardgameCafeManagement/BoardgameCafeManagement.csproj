@@ -14,12 +14,13 @@
     <None Remove="Images\bg.png" />
     <None Remove="Images\bill_icon.png" />
     <None Remove="Images\delete_icon.png" />
-    <None Remove="Images\drink-icon.png" />
+    <None Remove="Images\drink_icon.png" />
     <None Remove="Images\edit_icon.png" />
     <None Remove="Images\game_icon.png" />
+    <None Remove="Images\login-img.jpg" />
     <None Remove="Images\refresh_icon.png" />
     <None Remove="Images\search_icon.png" />
-    <None Remove="Images\staff-icon.png" />
+    <None Remove="Images\staff_icon.png" />
     <None Remove="Images\table_icon.png" />
     <None Remove="Images\view_icon.png" />
   </ItemGroup>
@@ -28,10 +29,13 @@
     <Resource Include="Images\delete_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\drink-icon.png">
+    <Resource Include="Images\drink_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\game_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\login-img.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\search_icon.png" />
@@ -74,7 +78,7 @@
     <Resource Include="Images\refresh_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\staff-icon.png">
+    <Resource Include="Images\staff_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\table_icon.png">

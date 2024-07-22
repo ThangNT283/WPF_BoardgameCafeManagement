@@ -91,6 +91,12 @@ namespace BoardgameCafeManagement.ViewModels
             get { return _maxPlayerError; }
             set { _maxPlayerError = value; OnPropertyChanged(nameof(MaxPlayerError)); }
         }
+        private string _gameTypeError;
+        public string GameTypeError
+        {
+            get { return _gameTypeError; }
+            set { _gameTypeError = value; OnPropertyChanged(nameof(GameTypeError)); }
+        }
         #endregion
 
         #region Commands
@@ -199,8 +205,21 @@ namespace BoardgameCafeManagement.ViewModels
             isValid &= ValidateName();
             isValid &= IsMinNumberValid();
             isValid &= IsMaxNumberValid();
+            isValid &= IsValidGameType();
 
             return isValid;
+        }
+
+        private bool IsValidGameType()
+        {
+            if (GameTypeId <= 0)
+            {
+                GameTypeError = "Game type cannot be empty";
+                return false;
+            }
+
+            GameTypeError = "";
+            return true;
         }
 
         private bool ValidateName()
@@ -232,6 +251,7 @@ namespace BoardgameCafeManagement.ViewModels
             if (MinPlayer.IsNullOrEmpty())
             {
                 MinPlayerError = "Minimum player number cannot be empty";
+                return false;
             }
 
             MinPlayer = _minPlayer.Trim();
@@ -269,6 +289,7 @@ namespace BoardgameCafeManagement.ViewModels
             if (MaxPlayer.IsNullOrEmpty())
             {
                 MaxPlayerError = "Maximum player number cannot be empty";
+                return false;
             }
 
             MaxPlayer = _maxPlayer.Trim();

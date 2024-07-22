@@ -86,6 +86,12 @@ namespace BoardgameCafeManagement.ViewModels
             get { return _drinkNameError; }
             set { _drinkNameError = value; OnPropertyChanged(nameof(DrinkNameError)); }
         }
+        private string _categoryError;
+        public string CategoryError
+        {
+            get { return _categoryError; }
+            set { _categoryError = value; OnPropertyChanged(nameof(CategoryError)); }
+        }
         private string _sPriceError;
         public string SPriceError
         {
@@ -177,7 +183,6 @@ namespace BoardgameCafeManagement.ViewModels
                                 .SetPrice(Convert.ToInt32(SPrice))
                                 .SetStatus(true)
                                 .Build();
-                            MessageBox.Show(drinkVariation.ToString());
                             isSuccess &= _drinkVariationService.CreateVariation(drinkVariation);
                         }
 
@@ -190,7 +195,6 @@ namespace BoardgameCafeManagement.ViewModels
                                 .SetPrice(Convert.ToInt32(MPrice))
                                 .SetStatus(true)
                                 .Build();
-                            MessageBox.Show(drinkVariation.ToString());
                             isSuccess &= _drinkVariationService.CreateVariation(drinkVariation);
                         }
 
@@ -203,7 +207,6 @@ namespace BoardgameCafeManagement.ViewModels
                                 .SetPrice(Convert.ToInt32(LPrice))
                                 .SetStatus(true)
                                 .Build();
-                            MessageBox.Show(drinkVariation.ToString());
                             isSuccess &= _drinkVariationService.CreateVariation(drinkVariation);
                         }
 
@@ -381,6 +384,7 @@ namespace BoardgameCafeManagement.ViewModels
 
             isValid &= ValidateDrinkName();
             isValid &= ValidatePrices();
+            isValid &= IsValidCategory();
 
             if (isValid)
             {
@@ -390,6 +394,18 @@ namespace BoardgameCafeManagement.ViewModels
             }
 
             return isValid;
+        }
+
+        private bool IsValidCategory()
+        {
+            if (CategoryId <= 0)
+            {
+                CategoryError = "Category cannot be blank";
+                return false;
+            }
+
+            CategoryError = "";
+            return true;
         }
 
         private bool ValidateDrinkName()
@@ -431,30 +447,33 @@ namespace BoardgameCafeManagement.ViewModels
 
         private bool ValidateSPrice()
         {
-            SPrice = _sPrice.Trim();
-            if (Regex.IsMatch(_sPrice, SPECIAL_CHAR_PATTERN) ||
-                Regex.IsMatch(_sPrice, SPACE_PATTERN) ||
-                Regex.IsMatch(_sPrice, LETTER_PATTERN))
+            if (SPrice != null)
             {
-                SPriceError = "Price can only be number";
-                return false;
-            }
-
-            if (_sPrice.IsNullOrEmpty()) { return true; }
-
-            try
-            {
-                if (Convert.ToInt32(_sPrice) <= 0)
+                SPrice = _sPrice.Trim();
+                if (Regex.IsMatch(_sPrice, SPECIAL_CHAR_PATTERN) ||
+                    Regex.IsMatch(_sPrice, SPACE_PATTERN) ||
+                    Regex.IsMatch(_sPrice, LETTER_PATTERN))
                 {
-                    SPriceError = "Capacity must be larger than 0";
+                    SPriceError = "Price can only be number";
                     return false;
                 }
-            }
-            catch (Exception ex)
-            {
-                SPriceError = "Invalid price";
-                MessageBox.Show(ex.Message);
-                return false;
+
+                if (_sPrice.IsNullOrEmpty()) { return true; }
+
+                try
+                {
+                    if (Convert.ToInt32(_sPrice) <= 0)
+                    {
+                        SPriceError = "Capacity must be larger than 0";
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    SPriceError = "Invalid price";
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
             }
 
             SPriceError = string.Empty;
@@ -463,58 +482,63 @@ namespace BoardgameCafeManagement.ViewModels
 
         private bool ValidateMPrice()
         {
-            MPrice = _mPrice.Trim();
-            if (Regex.IsMatch(_mPrice, SPECIAL_CHAR_PATTERN) ||
-                Regex.IsMatch(_mPrice, SPACE_PATTERN) ||
-                Regex.IsMatch(_mPrice, LETTER_PATTERN))
+            if (MPrice != null)
             {
-                MPriceError = "Price can only be number";
-                return false;
-            }
-
-            try
-            {
-                if (!_mPrice.IsNullOrEmpty() && Convert.ToInt32(_mPrice) <= 0)
+                MPrice = _mPrice.Trim();
+                if (Regex.IsMatch(_mPrice, SPECIAL_CHAR_PATTERN) ||
+                    Regex.IsMatch(_mPrice, SPACE_PATTERN) ||
+                    Regex.IsMatch(_mPrice, LETTER_PATTERN))
                 {
-                    MPriceError = "Capacity must be larger than 0";
+                    MPriceError = "Price can only be number";
+                    return false;
+                }
+
+                try
+                {
+                    if (!_mPrice.IsNullOrEmpty() && Convert.ToInt32(_mPrice) <= 0)
+                    {
+                        MPriceError = "Capacity must be larger than 0";
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MPriceError = "Invalid price";
+                    MessageBox.Show(ex.Message);
                     return false;
                 }
             }
-            catch (Exception ex)
-            {
-                MPriceError = "Invalid price";
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-
             MPriceError = string.Empty;
             return true;
         }
 
         private bool ValidateLPrice()
         {
-            LPrice = _lPrice.Trim();
-            if (Regex.IsMatch(_lPrice, SPECIAL_CHAR_PATTERN) ||
-                Regex.IsMatch(_lPrice, SPACE_PATTERN) ||
-                Regex.IsMatch(_lPrice, LETTER_PATTERN))
+            if (LPrice != null)
             {
-                LPriceError = "Price can only be number";
-                return false;
-            }
-
-            try
-            {
-                if (!_lPrice.IsNullOrEmpty() && Convert.ToInt32(_lPrice) <= 0)
+                LPrice = _lPrice.Trim();
+                if (Regex.IsMatch(_lPrice, SPECIAL_CHAR_PATTERN) ||
+                    Regex.IsMatch(_lPrice, SPACE_PATTERN) ||
+                    Regex.IsMatch(_lPrice, LETTER_PATTERN))
                 {
-                    LPriceError = "Capacity must be larger than 0";
+                    LPriceError = "Price can only be number";
                     return false;
                 }
-            }
-            catch (Exception ex)
-            {
-                LPriceError = "Invalid price";
-                MessageBox.Show(ex.Message);
-                return false;
+
+                try
+                {
+                    if (!_lPrice.IsNullOrEmpty() && Convert.ToInt32(_lPrice) <= 0)
+                    {
+                        LPriceError = "Capacity must be larger than 0";
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LPriceError = "Invalid price";
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
             }
 
             LPriceError = string.Empty;

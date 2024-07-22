@@ -119,7 +119,23 @@ namespace BoardgameCafeManagement.ViewModels
         public int Total
         {
             get { return _total; }
-            set { _total = value; OnPropertyChanged(nameof(Total)); }
+            set
+            {
+                _total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+        private int _drinkTotal;
+        public int DrinkTotal
+        {
+            get { return _drinkTotal; }
+            set { _drinkTotal = value; OnPropertyChanged(nameof(DrinkTotal)); }
+        }
+        private int _gameTotal;
+        public int GameTotal
+        {
+            get { return _gameTotal; }
+            set { _gameTotal = value; OnPropertyChanged(nameof(PlayedGames)); }
         }
         #endregion
 
@@ -129,6 +145,7 @@ namespace BoardgameCafeManagement.ViewModels
         public RelayCommand SubmitOrder { get; }
         public RelayCommand SearchDrink { get; }
         public RelayCommand DrinkSelectionChanged { get; }
+        public RelayCommand Calculate { get; }
 
         #endregion
 
@@ -150,6 +167,7 @@ namespace BoardgameCafeManagement.ViewModels
             SubmitOrder = new RelayCommand(PlaceOrder);
             SearchDrink = new RelayCommand(SearchForDrink);
             DrinkSelectionChanged = new RelayCommand(UpdateVariationOptions);
+            Calculate = new RelayCommand(UpdateTotal);
         }
 
         #region Actions
@@ -173,7 +191,8 @@ namespace BoardgameCafeManagement.ViewModels
                     newItem.Price = _drinkVariationService.GetPriceByVariation(SelectedDrink.Id, Size);
                     newItem.Quantity = Convert.ToInt32(Quantity);
                     OrderItems.Add(newItem);
-                    Total += newItem.SubTotal;
+                    DrinkTotal += newItem.SubTotal;
+                    Total = DrinkTotal + GameTotal;
 
                     ClearItemFields();
                 }
@@ -192,7 +211,8 @@ namespace BoardgameCafeManagement.ViewModels
                 return;
             }
 
-            Total -= SelectedItem.SubTotal;
+            DrinkTotal -= SelectedItem.SubTotal;
+            Total = DrinkTotal + GameTotal;
             OrderItems.Remove(SelectedItem);
         }
 
@@ -296,6 +316,19 @@ namespace BoardgameCafeManagement.ViewModels
             Quantity = "";
             OrderItems = new ObservableCollection<OrderItem>();
         }
+
+        private void UpdateTotal()
+        {
+            if (IsValidPlayedGames())
+            {
+                GameTotal = Convert.ToInt32(PlayedGames) * 5;
+            }
+            else
+            {
+                GameTotal = 0;
+            }
+            Total = DrinkTotal + GameTotal;
+        }
         #endregion
 
         #region Validation
@@ -377,9 +410,21 @@ namespace BoardgameCafeManagement.ViewModels
             res &= IsValidTableNumber();
             res &= IsValidCustomerName();
             res &= IsValidPlayedGames();
+            res &= IsValidDrinks();
 
             return res;
 
+        }
+
+        private bool IsValidDrinks()
+        {
+            if (OrderItems.Count <= 0)
+            {
+                MessageBox.Show("Order should have at least 1 drink");
+                return false;
+            }
+
+            return true;
         }
 
         private bool IsValidTableNumber()

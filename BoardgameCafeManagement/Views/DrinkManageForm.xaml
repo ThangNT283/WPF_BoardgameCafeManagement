@@ -112,7 +112,8 @@
                 <ComboBox Width="300" Margin="10, 13, 10, 0" ItemsSource="{Binding Categories}"
                           DisplayMemberPath="Name" SelectedValuePath="Id"
                           SelectedValue="{Binding CategoryId, Mode=TwoWay}"/>
-                <TextBlock Style="{StaticResource Error}"/>
+                <TextBlock Text="{Binding CategoryError, UpdateSourceTrigger=PropertyChanged}"
+                           Style="{StaticResource Error}"/>
 
                 <Viewbox Height="40" Margin="0, 0, 0, 10">
                     <CheckBox IsChecked="{Binding Status}"/>

@@ -77,7 +77,7 @@ namespace DataAccessLayer
         public static List<Bill> SearchBill(int? tableId, string? customerName, DateTime? startTime, DateTime? endTime)
         {
             return _context.Bills
-                .Where(b => !tableId.HasValue || b.TableId == tableId.Value)
+                .Where(b => !tableId.HasValue || tableId <= 0 || b.TableId == tableId.Value)
                 .Where(b => string.IsNullOrEmpty(customerName) || b.CustomerName.Contains(customerName))
                 .Where(b => !startTime.HasValue || b.PaidAt >= startTime.Value)
                 .Where(b => !endTime.HasValue || b.PaidAt <= endTime.Value)
